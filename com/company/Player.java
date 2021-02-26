@@ -12,5 +12,6 @@ public class Player {
         for(Card card: hand.getCards()){
             System.out.println(card.toString());
         }
+        System.out.println("Hand value: " + hand.getHandValue());
     }
 }

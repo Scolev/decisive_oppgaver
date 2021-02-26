@@ -67,7 +67,6 @@ public class Main {
                     }
                     System.out.println("Dealer flips second card");
                     dealer.printCards();
-//                    System.out.println("Dealer will now draw");
                     while (dealer.hand.getHandValue() < 16) {
                         System.out.println("Dealer draws");
                         dealer.drawCard(deck);
@@ -75,9 +74,7 @@ public class Main {
                     }
                     if (dealer.hand.getHandValue() > 21) {
                         System.out.println("Dealer busts, you win!");
-                        break;
-                    }
-                    if (dealer.hand.getHandValue() < user.hand.getHandValue()) {
+                    } else if (dealer.hand.getHandValue() < user.hand.getHandValue()) {
                         System.out.println("Your hand value " + user.hand.getHandValue());
                         System.out.println("Dealers hand value " + dealer.hand.getHandValue());
                         System.out.println("Congratulations, you win!");
