@@ -1,11 +1,12 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 public class Deck {
-    public ArrayList<Card> cards = new ArrayList<>();
+
+    //Bruker LinkedList for å støtte både shuffle og removeFirst
+    //Gjort private og final - collection av Cards er en implementasjonsdetalj som skal gjemmes fra de andre klassene
+    private final LinkedList<Card> cards = new LinkedList<>();
 
     Deck() {
         for(Suit suits: Suit.values()){
@@ -16,9 +17,10 @@ public class Deck {
         }
     }
 
-    public ArrayList<Card> getCards() {
-        return cards;
+    public Card drawCard() {
+        return cards.removeFirst();
     }
+
     public void shuffleDeck() {
         Collections.shuffle(cards);
     }
