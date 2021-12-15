@@ -13,9 +13,7 @@ public class Card {
         return this.number;
     }
 
-    public Suit getSuit() {
-        return this.suit;
-    }
+    //Fjernet metode som ikke var brukt - suit blir kun brukt i toString, som er helt fint.
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
