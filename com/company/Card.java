@@ -13,8 +13,6 @@ public class Card {
         return this.number;
     }
 
-    //Fjernet metode som ikke var brukt - suit blir kun brukt i toString, som er helt fint.
-
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (number <= 10 && number > 1) {

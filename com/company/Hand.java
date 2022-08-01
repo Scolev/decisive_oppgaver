@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 public class Hand {
 
-    //Endret til final
     private final ArrayList<Card> cards = new ArrayList<>();
-
-    //Var ikke nødvendig å ha handvalue som eget felt, det beregnes uansett hver gang det brukes
 
     public ArrayList<Card> getCards() {
         return cards;
@@ -17,10 +14,6 @@ public class Hand {
         cards.add(card);
     }
 
-    //evaluateHand() ble kun brukt internt i Hand-klassen, burde vært private
-
-    //Slått sammen evaluateHand og getHandValue, siden getHandValue i seg selv ikke gjorde noe annet enn å kalle
-    //evaluateHand() (etter at handValue ikke lengre er et felt)
     public int getHandValue() {
         int val = 0;
         int aces = 0;

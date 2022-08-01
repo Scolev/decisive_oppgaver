@@ -8,8 +8,6 @@ public class Main {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Blackjack\ntype [play] to play");
-
-        //Koden under hadde et ekstra innrykk
         start:
         while (in.hasNext()) {
             String s = in.nextLine();
@@ -84,7 +82,7 @@ public class Main {
                     System.out.println("Your hand value " + user.getHand().getHandValue());
                     System.out.println("Dealers hand value " + dealer.getHand().getHandValue());
                     System.out.println("It's a push!");
-                } else { //Hvis dealer og player har samme verdi på hånda, så vinner dealer. Det skal vel ende med push (uavgjort)?
+                } else {
                     System.out.println("Your hand value " + user.getHand().getHandValue());
                     System.out.println("Dealers hand value " + dealer.getHand().getHandValue());
                     System.out.println("Sorry, you lose");

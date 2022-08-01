@@ -3,9 +3,6 @@ package com.company;
 import java.util.*;
 
 public class Deck {
-
-    //Bruker LinkedList for å støtte både shuffle og removeFirst
-    //Gjort private og final - collection av Cards er en implementasjonsdetalj som skal gjemmes fra de andre klassene
     private final LinkedList<Card> cards = new LinkedList<>();
 
     Deck() {
