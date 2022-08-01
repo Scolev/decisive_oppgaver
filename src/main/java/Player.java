@@ -1,5 +1,3 @@
-package com.company;
-
 public class Player {
     private final Hand hand = new Hand();
 
