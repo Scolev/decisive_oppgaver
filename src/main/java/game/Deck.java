@@ -1,5 +1,9 @@
-import java.util.*;
+package game;
 
+import org.springframework.context.annotation.Configuration;
+
+import java.util.*;
+@Configuration
 public class Deck {
     private final LinkedList<Card> cards = new LinkedList<>();
 
