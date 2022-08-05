@@ -1,16 +1,31 @@
-package game;
+package blackjack;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class Card {
-    private final int number;
-    private final Suit suit;
+    private int number;
+    private Suit suit;
 
-    Card(int number, Suit suit){
+    @Autowired
+    public Card(int number, Suit suit) {
         this.number = number;
+        this.suit = suit;
+    }
+
+    public Suit getSuit() {
+        return suit;
+    }
+
+    public void setSuit(Suit suit) {
         this.suit = suit;
     }
 
     public int getNumber() {
         return this.number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public String toString() {
