@@ -1,12 +1,9 @@
 package blackjack;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class Card {
     private int number;
     private Suit suit;
 
-    @Autowired
     public Card(int number, Suit suit) {
         this.number = number;
         this.suit = suit;

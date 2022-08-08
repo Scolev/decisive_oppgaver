@@ -2,18 +2,19 @@ package blackjack;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class Game {
 
 
-    public Player player;
+    private Player player;
 
-    public Player dealer;
+    private Player dealer;
     @JsonIgnore
-    public Deck deck;
+    private Deck deck;
 
-    public Result result = null;
+    private Result result = null;
 
     @Autowired
     public Game() {

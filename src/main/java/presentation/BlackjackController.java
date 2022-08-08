@@ -3,14 +3,12 @@ package presentation;
 
 import blackjack.Game;
 import blackjack.Result;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @ComponentScan(basePackages = "blackjack")
 @RestController
@@ -24,14 +22,14 @@ public class BlackjackController {
     String startNewGame(@RequestParam(required = false) String name) throws JsonProcessingException {
         game = new Game();
         if (name != null) {
-            game.player.setName(name);
+            game.getPlayer().setName(name);
         }
-        game.deck.shuffleDeck();
-        game.dealer.drawCard(game.deck);
-        game.dealer.drawCard(game.deck);
-        game.player.drawCard(game.deck);
-        game.player.drawCard(game.deck);
-        if (game.player.getHand().getHandValue() == 21) {
+        game.getDeck().shuffleDeck();
+        game.getDealer().drawCard(game.getDeck());
+        game.getDealer().drawCard(game.getDeck());
+        game.getPlayer().drawCard(game.getDeck());
+        game.getPlayer().drawCard(game.getDeck());
+        if (game.getPlayer().getHand().getHandValue() == 21) {
             game.setResult(Result.PLAYER_WINS);
             //TODO: Win msg
             return objectMapper.writeValueAsString(game);
@@ -43,11 +41,11 @@ public class BlackjackController {
     @GetMapping("/hit")
     String hit() throws JsonProcessingException {
         if (game.getResult() == null) {
-            game.player.drawCard(game.deck);
-            if (game.player.getHand().getHandValue() > 21) {
+            game.getPlayer().drawCard(game.getDeck());
+            if (game.getPlayer().getHand().getHandValue() > 21) {
                 game.setResult(Result.DEALER_WINS);
             }
-            return objectMapper.writeValueAsString(game.player.getHand());
+            return objectMapper.writeValueAsString(game.getPlayer().getHand());
         } else {
             return "You've already lost! Start a '/newGame' to play again.";
         }
@@ -55,7 +53,7 @@ public class BlackjackController {
 
     @GetMapping("/stay")
     String stay() throws JsonProcessingException {
-        if(game.getResult() == null) {
+        if (game.getResult() == null) {
             while (game.getDealer().getHand().getHandValue() < 17) {
                 game.getDealer().drawCard(game.getDeck());
                 if (game.getDealer().getHand().getHandValue() > 21) {
@@ -73,20 +71,20 @@ public class BlackjackController {
         return objectMapper.writeValueAsString(game.getResult());
     }
 
-     @GetMapping("/gameState")
-     String viewGameState() throws JsonProcessingException {
+    @GetMapping("/gameState")
+    String viewGameState() throws JsonProcessingException {
         return objectMapper.writeValueAsString(game);
-     }
+    }
 
     @GetMapping("/test")
     String testfunction() throws JsonProcessingException {
         String insideFunc = "Test";
-        game = new Game();
-        game.deck.shuffleDeck();
-        game.dealer.drawCard(game.deck);
-        game.dealer.drawCard(game.deck);
-        game.player.drawCard(game.deck);
-        game.player.drawCard(game.deck);
+        //game = new Game();
+        game.getDeck().shuffleDeck();
+        game.getDealer().drawCard(game.getDeck());
+        game.getDealer().drawCard(game.getDeck());
+        game.getPlayer().drawCard(game.getDeck());
+        game.getPlayer().drawCard(game.getDeck());
         return objectMapper.writeValueAsString(game);
     }
 

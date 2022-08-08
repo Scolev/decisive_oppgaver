@@ -1,16 +1,11 @@
 package blackjack;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-
 import java.util.ArrayList;
 
-@Configuration
 public class Hand {
 
     private ArrayList<Card> cards = new ArrayList<>();
 
-    @Autowired
     public Hand() {
         this.cards = new ArrayList<>();
     }
