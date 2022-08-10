@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 
-
+.idea/libraries
 .idea/artifacts
 .idea/compiler.xml
 .idea/jarRepositories.xml

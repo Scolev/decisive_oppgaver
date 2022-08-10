@@ -29,12 +29,11 @@ public class BlackjackController {
         game.getDealer().drawCard(game.getDeck());
         game.getPlayer().drawCard(game.getDeck());
         game.getPlayer().drawCard(game.getDeck());
+        game.getDealer().getHand().setShowAllCards(false);
         if (game.getPlayer().getHand().getHandValue() == 21) {
             game.setResult(Result.PLAYER_WINS);
-            //TODO: Win msg
-            return objectMapper.writeValueAsString(game);
+            return objectMapper.writeValueAsString(game.getResult());
         }
-        //TODO: show hand + dealer first card
         return objectMapper.writeValueAsString(game);
     }
 
@@ -47,12 +46,13 @@ public class BlackjackController {
             }
             return objectMapper.writeValueAsString(game.getPlayer().getHand());
         } else {
-            return "You've already lost! Start a '/newGame' to play again.";
+            return objectMapper.writeValueAsString(game.getResult());
         }
     }
 
     @GetMapping("/stay")
     String stay() throws JsonProcessingException {
+        game.getDealer().getHand().setShowAllCards(true);
         if (game.getResult() == null) {
             while (game.getDealer().getHand().getHandValue() < 17) {
                 game.getDealer().drawCard(game.getDeck());
@@ -76,16 +76,8 @@ public class BlackjackController {
         return objectMapper.writeValueAsString(game);
     }
 
-    @GetMapping("/test")
-    String testfunction() throws JsonProcessingException {
-        String insideFunc = "Test";
-        //game = new Game();
-        game.getDeck().shuffleDeck();
-        game.getDealer().drawCard(game.getDeck());
-        game.getDealer().drawCard(game.getDeck());
-        game.getPlayer().drawCard(game.getDeck());
-        game.getPlayer().drawCard(game.getDeck());
-        return objectMapper.writeValueAsString(game);
+    @GetMapping("/result")
+    String result() throws JsonProcessingException {
+        return objectMapper.writeValueAsString(game.getResult());
     }
-
 }

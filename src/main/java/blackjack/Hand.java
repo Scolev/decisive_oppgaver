@@ -1,17 +1,27 @@
 package blackjack;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 
 public class Hand {
 
-    private ArrayList<Card> cards = new ArrayList<>();
+    private ArrayList<Card> cards;
+
+    private Boolean showAllCards = true;
 
     public Hand() {
         this.cards = new ArrayList<>();
     }
 
     public ArrayList<Card> getCards() {
-        return cards;
+        if (showAllCards) {
+            return cards;
+        } else {
+            return new ArrayList<Card>() {{
+                add(cards.get(0));
+            }};
+        }
     }
 
     public void setCards(ArrayList<Card> cards) {
@@ -23,26 +33,47 @@ public class Hand {
     }
 
     public int getHandValue() {
-        int val = 0;
-        int aces = 0;
+        if (showAllCards) {
+            int val = 0;
+            int aces = 0;
 
-        for (Card card : cards) {
-            if (card.getNumber() > 10) {
-                val += 10;
-            } else if (card.getNumber() == 1) {
-                aces++;
+            for (Card card : cards) {
+                if (card.getNumber() > 10) {
+                    val += 10;
+                } else if (card.getNumber() == 1) {
+                    aces++;
+                } else {
+                    val += card.getNumber();
+                }
+            }
+            for (int i = 0; i < aces; i++) {
+                if (val + 10 > 21 - aces) {
+                    val += 1;
+                } else {
+                    val += 11;
+                }
+            }
+            return val;
+        } else {
+            if (cards.get(0).getNumber() > 10) {
+                return 10;
+            } else if (cards.get(0).getNumber() == 1) {
+                return 11;
             } else {
-                val += card.getNumber();
+                return cards.get(0).getNumber();
             }
         }
-        for (int i = 0; i < aces; i++) {
-            if (val + 10 > 21 - aces) {
-                val += 1;
-            } else {
-                val += 11;
-            }
-        }
-        return val;
     }
+
+    @JsonIgnore
+    public Boolean getShowAllCards() {
+        return showAllCards;
+    }
+
+    @JsonIgnore
+    public void setShowAllCards(Boolean showAllCards) {
+        this.showAllCards = showAllCards;
+    }
+
 
 }
