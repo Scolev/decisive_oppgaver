@@ -14,6 +14,10 @@ public class Hand {
         this.cards = new ArrayList<>();
     }
 
+    public void emptyHand() {
+        this.cards.clear();
+    }
+
     public ArrayList<Card> getCards() {
         if (showAllCards) {
             return cards;
@@ -74,6 +78,4 @@ public class Hand {
     public void setShowAllCards(Boolean showAllCards) {
         this.showAllCards = showAllCards;
     }
-
-
 }

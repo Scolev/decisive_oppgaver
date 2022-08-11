@@ -5,6 +5,7 @@ import blackjack.Game;
 import blackjack.Result;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,23 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 @ComponentScan(basePackages = "blackjack")
 @RestController
 public class BlackjackController {
-
+    @Autowired
     public Game game;
 
     ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping("/newGame")
     String startNewGame(@RequestParam(required = false) String name) throws JsonProcessingException {
-        game = new Game();
         if (name != null) {
             game.getPlayer().setName(name);
         }
-        game.getDeck().shuffleDeck();
+        game.reshuffle();
         game.getDealer().drawCard(game.getDeck());
         game.getDealer().drawCard(game.getDeck());
         game.getPlayer().drawCard(game.getDeck());
         game.getPlayer().drawCard(game.getDeck());
-        game.getDealer().getHand().setShowAllCards(false);
         if (game.getPlayer().getHand().getHandValue() == 21) {
             game.setResult(Result.PLAYER_WINS);
             return objectMapper.writeValueAsString(game.getResult());

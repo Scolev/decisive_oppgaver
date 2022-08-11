@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class Game {
 
-
     private Player player;
 
     private Player dealer;
@@ -17,10 +16,19 @@ public class Game {
     private Result result = null;
 
     @Autowired
-    public Game() {
+    public Game(Player player, Player dealer) {
         this.deck = new Deck();
-        this.player = new Player("Player");
-        this.dealer = new Player("Dealer");
+        this.player = player;
+        this.dealer = dealer;
+    }
+
+    public void reshuffle() {
+        this.deck = new Deck();
+        this.deck.shuffleDeck();
+        this.result = null;
+        this.player.getHand().emptyHand();
+        this.dealer.getHand().emptyHand();
+        this.dealer.getHand().setShowAllCards(false);
     }
 
     public Player getPlayer() {
